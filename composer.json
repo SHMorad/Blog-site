@@ -1,0 +1,19 @@
+{
+    "name": "wdpf/project12",
+    "type": "project",
+    "require": {
+        "intervention/image": "^2.7",
+        "nesbot/carbon": "^2.63"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wdpf\\Project12\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "asamamun",
+            "email": "asamamun.web@gmail.com"
+        }
+    ]
+}

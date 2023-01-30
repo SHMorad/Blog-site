@@ -1,0 +1,66 @@
+
+@font-face {
+    font-family: 'shohan';
+    src: url('assets/fonts/Alinur SnigdhaUnicode.ttf');
+}
+
+@font-face {
+    font-family: 'idb';
+    src: url('assets/fonts/Alinur SnigdhaUnicode.ttf');
+}
+header h1 {
+    text-align: center;
+    font-family: shohan, 'Luckiest Guy', cursive;
+    color: lightcoral;
+    text-shadow: 0px 0px 2px rgb(218, 169, 169);
+    letter-spacing: 0.1em;
+}
+
+header h1::first-letter {
+    color: coral;
+    font-size: larger;
+}
+
+h3 {
+    font-family: idb, 'Luckiest Guy', cursive;
+    color: darkolivegreen;
+    text-shadow: 0px 0px 2px rgb(107, 142, 35);
+    letter-spacing: 0.2em;
+
+}
+
+
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav a, footer a {
+    padding: 10px;
+    text-decoration: none;
+    color: chocolate;
+}
+footer a:hover{
+    color: blue;
+}
+
+
+main p {
+    font-family: 'Source Serif 4', serif;
+    text-align: justify;
+}
+
+main p::first-letter {
+    font-size: 1.5em;
+    font-style: italic;
+}
+footer {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 100px;
+    background: aqua;
+}
+
+

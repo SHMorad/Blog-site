@@ -1,3 +1,4 @@
+<div class="container">
 <footer>            
     <div>
         <a href="#"><i class="fa-brands fa-facebook"></i></a>
@@ -6,3 +7,4 @@
         <a href="tel:01911123456"><i class="fa-brands fa-whatsapp"></i></a>
     </div>
 </footer>
+</div>

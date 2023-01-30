@@ -5,19 +5,14 @@ require "connection.php";
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.72.0">
-    <title>Blog Template · Bootstrap</title>
-
+    <title>Blog Template</title>
     <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/blog/">
-
-
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -27,8 +22,10 @@ require "connection.php";
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-
-    <style>
+     <!-- Custom styles for this template -->
+     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+  <!--   <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -44,11 +41,7 @@ require "connection.php";
             }
         }
     </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
+   
     <style>
         /* stylelint-disable selector-list-comma-newline-after */
 
@@ -168,28 +161,29 @@ require "connection.php";
         .blog-footer p:last-child {
             margin-bottom: 0;
         }
-    </style>
+        .use{
+            color:#000;
+        }
+        .user a : hover{
+            color:#fff;
+        }
+    </style> -->
 </head>
 
 <body>
 
     <div class="container">
-        <header class="blog-header py-3">
-            <div class="row flex-nowrap justify-content-between align-items-center">
+        <header class="blog-header py-3" >
+            <div class="row flex-nowrap justify-content-between align-items-center p-2" style="background-color:#eeeeee">
                 <div class="col-4 pt-1">
                     <?php
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-    ?>
-<a class="link-secondary" href="#"><?php echo $_SESSION['user'] ?></a>
-<a class="link-secondary" href="dashboard.php">Dashboard</a>
-    <?php
-}
-
-                    ?>
-                    
-                </div>
-                <div class="col-4 text-center">
-                    <a class="blog-header-logo text-dark" href="#">Large</a>
+                    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
+                        ?>
+                    <span class="btn btn-outline-secondary user mr-4">UserName : <a class="link-secondary text-decoration-none" href="#"><?php echo $_SESSION['user'] ?></a></span>
+                    <span class="btn btn-outline-info user"><a class="link-secondary text-decoration-none" href="dashboard.php">Dashboard</a></span>
+                    <?php
+                    }
+                    ?>         
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
@@ -202,12 +196,12 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
                         </svg>
                     </a>
                     <?php
-if(isset($_SESSION['loggedin'])){
-    ?>
-    <a class="btn btn-sm btn-outline-secondary" href="logout.php">Logout</a>
-    <?php
-}
-else{
+                    if(isset($_SESSION['loggedin'])){
+                        ?>
+                        <a class="btn btn-sm btn-outline-secondary" href="logout.php">Logout</a>
+                        <?php
+                    }
+                    else{
                     ?>
                     <a class="btn btn-sm btn-outline-secondary" href="login.php">Sign in</a>
                     <a class="btn btn-sm btn-outline-secondary" href="registration.php">Sign up</a>
@@ -215,130 +209,52 @@ else{
                 </div>
             </div>
         </header>
-
-        <div class="nav-scroller py-1 mb-2">
-            <nav class="nav d-flex justify-content-start">
-                <?php
-$q = "select * from categories where 1";
-$qr = $conn->query($q);
-if($qr->num_rows){
-while( $row= $qr->fetch_assoc()){
-    echo '<a class="p-2 link-secondary" href="category.php?id='.$row['id'].'">'.$row['name'].'</a>';
-}
-}
+        <!-- start navbar -->
+        <div class="nav-scroller py-1">
+            <nav class="nav d-flex justify-content-start mb-3">
+                                <?php
+                $q = "select * from categories where 1";
+                $qr = $conn->query($q);
+                if($qr->num_rows){
+                while( $row= $qr->fetch_assoc()){
+                    echo '<a class="p-2 link-secondary btn btn-outline-info mb-2 mr-2" href="category.php?id='.$row['id'].'">'.$row['name'].'</a>';
+                }
+                }
                 ?>
-                <!-- <a class="p-2 link-secondary" href="#">World</a>
-                <a class="p-2 link-secondary" href="#">U.S.</a>
-                <a class="p-2 link-secondary" href="#">Technology</a>
-                <a class="p-2 link-secondary" href="#">Design</a>
-                <a class="p-2 link-secondary" href="#">Culture</a>
-                <a class="p-2 link-secondary" href="#">Business</a>
-                <a class="p-2 link-secondary" href="#">Politics</a>
-                <a class="p-2 link-secondary" href="#">Opinion</a>
-                <a class="p-2 link-secondary" href="#">Science</a>
-                <a class="p-2 link-secondary" href="#">Health</a>
-                <a class="p-2 link-secondary" href="#">Style</a>
-                <a class="p-2 link-secondary" href="#">Travel</a> -->
             </nav>
-        </div>
-
-        <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                    efficiently about what’s most interesting in this post’s contents.</p>
-                <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
-            </div>
-        </div>
-
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">World</strong>
-                        <h3 class="mb-0">Featured post</h3>
-                        <div class="mb-1 text-muted">Nov 12</div>
-                        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural
-                            lead-in to additional content.</p>
-                        <a href="#" class="stretched-link">Continue reading</a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-                            aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img"
-                            focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                                dy=".3em">Thumbnail</text>
-                        </svg>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-success">Design</strong>
-                        <h3 class="mb-0">Post title</h3>
-                        <div class="mb-1 text-muted">Nov 11</div>
-                        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to
-                            additional content.</p>
-                        <a href="#" class="stretched-link">Continue reading</a>
-                    </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
-                            aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" role="img"
-                            focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                                dy=".3em">Thumbnail</text>
-                        </svg>
-
-                    </div>
-                </div>
-            </div>
+            <!-- end navbar -->
         </div>
     </div>
 
     <main class="container">
         <div class="row">
             <div class="col-md-8">
-                <h3 class="pb-4 mb-4 font-italic border-bottom">
-                    From the Firehose
-                </h3>
-<?php
-// $q = "select * from articles where 1 order by created_at desc limit 0,10";
-$q = "select articles.*, users.id as userid,users.username from articles inner join users on articles.user_id = users.id where articles.status='1' order by created_at desc limit 0,10";
-$qr = $conn->query($q);
-if($qr->num_rows){
-    while($article = $qr->fetch_assoc()){
-        ?>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><?php echo $article['title']; ?></h2>
-                    <p class="blog-post-meta"><?php echo $article['created_at'] ?> by <a href="userprofile.php?id=<?=$article['user_id'] ?>"><?php echo $article['username']; ?></a></p>
-                        <div class="desc">
-                           <img src="<?php echo $article['image'] ?>" alt="" class="img-fluid"> 
-                           <hr>
-                            <?php echo substr($article['description'],0,200);?>
-                            <a href="article.php?id=<?php echo $article['id'] ?>">Read More</a>
+            <?php
+            // $q = "select * from articles where 1 order by created_at desc limit 0,10";
+            $q = "select articles.*, users.id as userid,users.username from articles inner join users on articles.user_id = users.id where articles.status='1' order by created_at desc limit 0,10";
+            $qr = $conn->query($q);
+            if($qr->num_rows){
+             while($article = $qr->fetch_assoc()){
+             ?>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col-md-12 mt-2 mb-4">
+                        <div class="card">
+                            <img style="height:350px" src="<?php echo $article['image'] ?>" class="card-img-top"alt="Skyscrapers" />
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo ucwords($article['title']); ?></h5>
+                                <p class="blog-post-meta"><?php echo $article['created_at'] ?> by <a href="userprofile.php?id=<?=$article['user_id'] ?>"><?php echo ucwords($article['username']); ?></a></p>
+                                <p class="card-text">
+                                <?php echo substr($article['description'],0,200);?><a href="article.php?id=<?php echo $article['id'] ?>">Read More</a>
+                                </p>
+                            </div>
                         </div>
-                    
-                </div><!-- /.blog-post -->
-        <?php
-    }
-}
+                    </div>
+                </div>
+                <?php
+                    }
+                     }
 
-?>
-
-
-
-
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
-                    <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-                </nav>
-
+                ?>
             </div>
 
             <aside class="col-md-4">
@@ -380,9 +296,8 @@ if($qr->num_rows){
 
     </main><!-- /.container -->
 
-    <footer class="blog-footer">
-        <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
-                href="https://twitter.com/mdo">@mdo</a>.</p>
+    <footer class="blog-footer text-center p-2" style="background-color:#eeeeee">
+        <p>Blog template Design by Sahadat Hossain.</p>
         <p>
             <a href="#">Back to top</a>
         </p>

@@ -182,19 +182,16 @@ else{
         <header class="blog-header py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                    <?php
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-    ?>
-<a class="link-secondary" href="#"><?php echo $_SESSION['user'] ?></a>
-<a class="link-secondary" href="dashboard.php">Dashboard</a>
-    <?php
-}
+                                        <?php
+                    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
+                        ?>
+                    <a class="link-secondary btn btn-outline-info mr-2" href="#"><?php echo $_SESSION['user'] ?></a>
+                    <a class="link-secondary btn btn-outline-info" href="dashboard.php">Dashboard</a>
+                        <?php
+                    }
 
                     ?>
                     
-                </div>
-                <div class="col-4 text-center">
-                    <a class="blog-header-logo text-dark" href="#">Large</a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <a class="link-secondary" href="#" aria-label="Search">
@@ -207,51 +204,37 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
                         </svg>
                     </a>
                     <?php
-if(isset($_SESSION['loggedin'])){
-    ?>
-    <a class="btn btn-sm btn-outline-secondary" href="logout.php">Logout</a>
-    <?php
-}
-else{
+                        if(isset($_SESSION['loggedin'])){
+                            ?>
+                            <a class="btn btn-outline-secondary" href="logout.php">Logout</a>
+                            <?php
+                        }
+                        else{
                     ?>
-                    <a class="btn btn-sm btn-outline-secondary" href="login.php">Sign in</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="login.php">Sign In</a>
                     <a class="btn btn-sm btn-outline-secondary" href="registration.php">Sign up</a>
-                    <?php } ?>
+                    <?php
+                        }
+                        ?>
                 </div>
             </div>
         </header>
 
-        <div class="nav-scroller py-1 mb-2">
+        <div class="nav-scroller py-1  mt-4">
             <nav class="nav d-flex justify-content-start">
                 <?php
-$q = "select * from categories where 1";
-$qr = $conn->query($q);
-if($qr->num_rows){
-while( $row= $qr->fetch_assoc()){
-    $btn = ($catid == $row['id']) ? "btn-primary" : "btn-secondary";
-    echo '<a class="p-2 mx-2 btn '.$btn.'" href="category.php?id='.$row['id'].'">'.$row['name'].'</a>';
-}
-}
+                    $q = "select * from categories where 1";
+                    $qr = $conn->query($q);
+                    if($qr->num_rows){
+                    while( $row= $qr->fetch_assoc()){
+                        $btn = ($catid == $row['id']) ? "btn-primary" : "btn-secondary";
+                        echo '<a class="p-2 mx-2 btn '.$btn.'" href="category.php?id='.$row['id'].'">'.$row['name'].'</a>';
+                    }
+                    }
                 ?>
-                <!-- <a class="p-2 link-secondary" href="#">World</a>
-                <a class="p-2 link-secondary" href="#">U.S.</a>
-                <a class="p-2 link-secondary" href="#">Technology</a>
-                <a class="p-2 link-secondary" href="#">Design</a>
-                <a class="p-2 link-secondary" href="#">Culture</a>
-                <a class="p-2 link-secondary" href="#">Business</a>
-                <a class="p-2 link-secondary" href="#">Politics</a>
-                <a class="p-2 link-secondary" href="#">Opinion</a>
-                <a class="p-2 link-secondary" href="#">Science</a>
-                <a class="p-2 link-secondary" href="#">Health</a>
-                <a class="p-2 link-secondary" href="#">Style</a>
-                <a class="p-2 link-secondary" href="#">Travel</a> -->
             </nav>
         </div>
-
-
-
     </div>
-
     <main class="container">
         <div class="row">
             <div class="col-md-8">
@@ -267,31 +250,25 @@ $qr = $conn->query($q);
 if($qr->num_rows){
     while($article = $qr->fetch_assoc()){
         ?>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><?php echo $article['title']; ?></h2>
-                    <p class="blog-post-meta"><?php echo $article['created_at'] ?> by <a href="userprofile.php?id=<?=$article['user_id'] ?>"><?php echo $article['username']; ?></a></p>
-                        <div class="desc">
-                           <img src="<?php echo $article['image'] ?>" alt="" class="img-fluid"> 
-                           <hr>
-                            <?php echo substr($article['description'],0,200);?>
-                            <a href="article.php?id=<?php echo $article['id'] ?>">Read More</a>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+                    <div class="col-md-12 mt-2 mb-4">
+                        <div class="card">
+                            <img style="height:350px" src="<?php echo $article['image'] ?>" class="card-img-top"alt="Skyscrapers" />
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo ucwords($article['title']); ?></h5>
+                                <p class="blog-post-meta"><?php echo $article['created_at'] ?> by <a href="userprofile.php?id=<?=$article['user_id'] ?>"><?php echo ucwords($article['username']); ?></a></p>
+                                <p class="card-text">
+                                <?php echo substr($article['description'],0,200);?><a href="article.php?id=<?php echo $article['id'] ?>">Read More</a>
+                                </p>
+                            </div>
                         </div>
-                    
-                </div><!-- /.blog-post -->
+                    </div>
+                </div>
         <?php
-    }
-}
+            }
+        }
 
-?>
-
-
-
-
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
-                    <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-                </nav>
-
+        ?>
             </div>
 
             <aside class="col-md-4">
@@ -332,10 +309,8 @@ if($qr->num_rows){
         </div><!-- /.row -->
 
     </main><!-- /.container -->
-
-    <footer class="blog-footer">
-        <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
-                href="https://twitter.com/mdo">@mdo</a>.</p>
+    <footer class="blog-footer" style="background-color:#EEEEEE">
+        <p>Blog template Develop  by Sahadat Hossain</p>
         <p>
             <a href="#">Back to top</a>
         </p>
